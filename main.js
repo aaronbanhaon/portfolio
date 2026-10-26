@@ -7,7 +7,6 @@ const marqueeTrack = marquee?.querySelector(".hero-marquee-track");
 const marqueeGroups = marqueeTrack?.querySelectorAll(".hero-marquee-group");
 const STORAGE_KEY = "janlie-theme";
 const root = document.documentElement;
-const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 const updateThemeToggle = (theme) => {
   const isDark = theme === "dark";
@@ -40,7 +39,7 @@ const getPreferredTheme = () => {
     return storedTheme;
   }
 
-  return mediaQuery.matches ? "dark" : "light";
+  return "dark";
 };
 
 if (year) {
@@ -56,18 +55,66 @@ if (themeToggle) {
     localStorage.setItem(STORAGE_KEY, nextTheme);
     applyTheme(nextTheme);
   });
+}
 
-  const handleSystemChange = (event) => {
-    if (!localStorage.getItem(STORAGE_KEY)) {
-      applyTheme(event.matches ? "dark" : "light");
-    }
-  };
+const emailCopyButton = document.querySelector(".email-copy");
+const copyNotice = document.querySelector(".copy-notice");
+let copyNoticeTimeout;
 
-  if (typeof mediaQuery.addEventListener === "function") {
-    mediaQuery.addEventListener("change", handleSystemChange);
-  } else if (typeof mediaQuery.addListener === "function") {
-    mediaQuery.addListener(handleSystemChange);
+const copyTextFallback = (text) => {
+  const input = document.createElement("textarea");
+  input.value = text;
+  input.setAttribute("readonly", "");
+  input.style.position = "fixed";
+  input.style.opacity = "0";
+  document.body.append(input);
+  let copied = false;
+  try {
+    input.select();
+    copied = document.execCommand("copy");
+  } finally {
+    input.remove();
   }
+
+  if (!copied) {
+    throw new Error("The browser did not allow copying to the clipboard.");
+  }
+};
+
+if (emailCopyButton instanceof HTMLButtonElement && copyNotice) {
+  emailCopyButton.addEventListener("click", async () => {
+    const email = emailCopyButton.dataset.email;
+    try {
+      if (!email) {
+        throw new Error("Email address is missing from the copy button.");
+      }
+
+      if (navigator.clipboard?.writeText) {
+        try {
+          await navigator.clipboard.writeText(email);
+        } catch {
+          copyTextFallback(email);
+        }
+      } else {
+        copyTextFallback(email);
+      }
+
+      copyNotice.textContent = `Copied ${email}`;
+    } catch (error) {
+      console.error("Unable to copy email address.", error);
+      copyNotice.textContent = "Couldn't copy email. Please try again.";
+    }
+
+    copyNotice.hidden = false;
+    requestAnimationFrame(() => copyNotice.classList.add("is-visible"));
+    window.clearTimeout(copyNoticeTimeout);
+    copyNoticeTimeout = window.setTimeout(() => {
+      copyNotice.classList.remove("is-visible");
+      window.setTimeout(() => {
+        copyNotice.hidden = true;
+      }, 180);
+    }, 2600);
+  });
 }
 
 if (marquee && marqueeGroups?.length === 2) {
