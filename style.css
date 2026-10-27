@@ -7,6 +7,7 @@
   --neutral-soft: #aab1b9;
   --line: rgb(176 194 207 / 28%);
   --accent: #d88961;
+  --green: #7ebc59;
   --measure: rgba(156, 192, 210, 0.5);
   --grid-fine: rgba(155, 188, 204, 0.045);
   --grid-major: rgba(155, 188, 204, 0.095);
@@ -334,8 +335,8 @@ a {
   height: 8px;
   margin-right: 8px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 3px rgb(180 111 80 / 15%);
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(88, 180, 80, 0.15);
 }
 
 .hero-content {
