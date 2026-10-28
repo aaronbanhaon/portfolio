@@ -428,6 +428,7 @@ a {
 .hero-bottom {
   width: min(455px, 100%);
   align-items: flex-end;
+  justify-content: flex-start;
   gap: 24px;
   margin-top: 42px;
 }
@@ -489,6 +490,58 @@ a {
 
 .text-link:hover span {
   transform: translate(3px, 3px);
+}
+
+.cv-download {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 14px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 9px;
+  letter-spacing: .04em;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.cv-download:hover,
+.cv-download:focus-visible {
+  transform: translateY(-2px);
+  background: transparent;
+  color: var(--ink);
+}
+
+.cv-download:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.cv-download span:first-of-type {
+  padding: 3px 4px;
+  border: 1px solid currentColor;
+  font-size: 8px;
+}
+
+.cv-download .cv-download-icon {
+  margin-left: 4px;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.resume-heading-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.resume-download {
+  flex-shrink: 0;
+  margin-right: 36px;
+  margin-bottom: 4px;
 }
 
 .hero-photo {
@@ -1341,6 +1394,10 @@ a {
     margin-top: 30px;
   }
 
+  .resume-heading-row {
+    align-items: flex-start;
+  }
+
   .hero-meta {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     max-width: 100%;
@@ -1527,9 +1584,9 @@ a {
   }
 
   .hero-bottom {
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
     margin-top: 27px;
   }
 
@@ -1541,6 +1598,17 @@ a {
   .hero-bottom .text-link {
     gap: 6px;
     font-size: 8px;
+  }
+
+  .resume-heading-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .resume-download {
+    margin-top: 22px;
+    margin-right: 0;
+    margin-bottom: 0;
   }
 
   .hero-meta {

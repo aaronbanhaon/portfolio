@@ -234,6 +234,7 @@ const measuredElements = document.querySelectorAll([
   ".experience-item",
   ".info-card",
   ".project-card",
+  ".resume-download",
   ".contact-cta",
   ".social-links",
   ".site-footer",
