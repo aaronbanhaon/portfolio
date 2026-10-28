@@ -324,8 +324,7 @@ a {
 :root[data-theme="dark"] .team-subtle,
 :root[data-theme="dark"] .card-label,
 :root[data-theme="dark"] .section-index,
-:root[data-theme="dark"] .eyebrow,
-:root[data-theme="dark"] .meta-label {
+:root[data-theme="dark"] .eyebrow {
   color: #d4d3ce;
 }
 
@@ -464,9 +463,10 @@ a {
 }
 
 .meta-label {
-  color: #565a52;
+  color: var(--neutral-strong);
   font-size: 9px;
   letter-spacing: .08em;
+  text-transform: uppercase;
 }
 
 .text-link {
@@ -1541,6 +1541,23 @@ a {
   .hero-bottom .text-link {
     gap: 6px;
     font-size: 8px;
+  }
+
+  .hero-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .hero-meta > div {
+    min-width: 0;
+    padding-inline: 12px;
+  }
+
+  .hero-meta > div:last-child {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
   }
 
   .hero-photo {
